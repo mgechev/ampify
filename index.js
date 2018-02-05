@@ -110,9 +110,20 @@ module.exports = function(html, options) {
     $(this).replaceWith(file);
   });
 
+  $('[style]').each(function () {
+    $(this).removeAttr('style');
+  });
+
   /* amp tags */
   $(tags.amp.join(',')).each(function() {
     this.name = 'amp-' + this.name;
+  });
+
+  $('amp-img').each(function () {
+    var img = $(this);
+    if (!img.attr('layout')) {
+      img.attr('layout', 'responsive');
+    }
   });
 
   return $.html();
